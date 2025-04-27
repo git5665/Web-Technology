@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Skill Box</title>
+  <style>
+    body {
+      font-family: Georgia, serif;
+      background: #f5f5f5;
+      padding: 30px;
+    }
+    .input-container {
+      display: flex;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+    label {
+      font-size: 24px;
+      margin-right: 10px;
+    }
+    #skillInput {
+      flex: 1;
+      padding: 8px;
+      font-size: 18px;
+      border: 2px solid #ccc;
+      border-radius: 5px;
+      margin-right: 10px;
+    }
+    #addSkillBtn {
+      padding: 8px 20px;
+      font-size: 18px;
+      border: none;
+      background: #eee;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    #skillsContainer {
+      border: 4px solid red;
+      min-height: 500px;
+      padding: 20px;
+    }
+    .skill-item {
+      display: inline-flex;
+      align-items: center;
+      background: black;
+      color: white;
+      font-weight: bold;
+      font-size: 24px;
+      padding: 5px 10px;
+      margin: 10px;
+      border-radius: 5px;
+    }
+    .remove-skill {
+      color: red;
+      font-size: 30px;
+      margin-left: 10px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+<div class="input-container">
+  <label for="skillInput">Skill</label>
+  <input type="text" id="skillInput" placeholder="Enter Skill">
+  <button id="addSkillBtn">Add</button>
+</div>
+
+<div id="skillsContainer">
+</div>
+
+<script>
+  const skillInput = document.getElementById('skillInput');
+  const addSkillBtn = document.getElementById('addSkillBtn');
+  const skillsContainer = document.getElementById('skillsContainer');
+
+  addSkillBtn.addEventListener('click', () => {
+    const skillText = skillInput.value.trim();
+    if (skillText !== "") {
+      const skillDiv = document.createElement('div');
+      skillDiv.classList.add('skill-item');
+
+      skillDiv.innerHTML = `
+        ${skillText}
+        <span class="remove-skill" onclick="this.parentElement.remove()">×</span>
+      `;
+
+      skillsContainer.appendChild(skillDiv);
+      skillInput.value = "";
+      skillInput.focus();
+    }
+  });
+
+  skillInput.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      addSkillBtn.click();
+    }
+  });
+</script>
+
+</body>
+</html>
